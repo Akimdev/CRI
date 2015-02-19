@@ -1,0 +1,71 @@
+.conteneur{
+width:99%;
+
+}
+
+
+.navbar-inner .nav  a {
+	font-family : inherit;
+	color:#113769;
+	font-size: 16px;
+
+} 
+.tableau{
+	border-top:1px solid black;
+width:930px;
+height:600px;
+overflow:scroll;
+}
+.table {
+    
+	
+	width:930px;
+	word-wrap: break-word;
+}
+
+
+.banner{
+	
+	text-align:center;
+	margin-bottom: 25px;
+}
+.header{
+
+	margin-top: 10px;
+}
+.footer{
+
+	text-align: center;
+	margin-top:10px;
+
+}
+body{
+	background:#E9EAED;
+}
+
+.inscrire{
+margin:7px
+
+}
+
+.valida {
+text-align:right;
+margin:7px;
+
+}
+
+.navheader{
+margin-bottom:5px;
+text-align:center;
+
+}
+/*** tableau **/
+table
+{
+    border-collapse: collapse; /* Les bordures du tableau seront collées (plus joli) */
+}
+td,th
+{
+    border: 1px solid black;
+}
+

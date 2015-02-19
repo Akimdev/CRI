@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:tx="http://www.springframework.org/schema/tx"
+xmlns:context="http://www.springframework.org/schema/context"
+xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+http://www.springframework.org/schema/tx
+http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+
+
+
+<!-- ___________________ Mapping Demande ________________________________________ --> 
+
+
+<bean id="demandeImplDAO" class="dao.DemandeImplDAO" ></bean>
+
+<bean id="demandeImplMetier" class="service.DemandeImplMetier" >
+<property name="dao" ref="demandeImplDAO"></property>
+</bean>
+
+ 
+  <!-- __________________ Mapping Partenariat ________________________________________ --> 
+ 
+ 
+<bean id="partenariatImplDAO" class="dao.PartenariatImplDAO" ></bean>
+
+<bean id="partenariatImplMetier" class="service.PartenariatImplMetier" >
+<property name="dao" ref="partenariatImplDAO"></property>
+</bean>
+ 
+ 
+ <!-- __________________ Mapping Entreprise ________________________________________ --> 
+ 
+ 
+ <bean id="entrepriseImplDAO" class="dao.EntrepriseImplDAO" ></bean>
+
+<bean id="entrepriseImplMetier" class="service.EntrepriseImplMetier" >
+<property name="dao" ref="entrepriseImplDAO"></property>
+</bean>
+ 
+  
+ 
+<!-- ____________________ Mapping Pays _________________________________________ --> 
+ 
+ 
+<bean id="paysImplDAO" class="dao.PaysImplDAO" ></bean>
+
+<bean id="paysImplMetier" class="service.PaysImplMetier" >
+<property name="dao" ref="paysImplDAO"></property>
+</bean>
+
+<!-- ____________________ Mapping Secteur _______________________________________ -->  
+
+
+<bean id="secteurImplDAO" class="dao.SecteurImplDAO" ></bean>
+
+<bean id="secteurImplMetier" class="service.SecteurImplMetier" >
+<property name="dao" ref="secteurImplDAO"></property>
+</bean>
+ 
+ 
+ <!-- ____________________ Mapping Utilisateur ____________________________________ -->  
+ 
+
+<bean id="utilisateurImplDAO" class="dao.UtilisateurImplDAO" ></bean>
+
+<bean id="utilisateurImplMetier" class="service.UtilisateurImplMetier" >
+<property name="dao" ref="utilisateurImplDAO"></property>
+</bean>
+ 
+
+
+</beans>
