@@ -42,7 +42,7 @@ private static final long serialVersionUID = 1L;
 					Class.forName("com.mysql.jdbc.Driver");
 					System.out.println("Driver");
 					try {
-					connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/cri_db?user=root&password=091992pgm$*");
+					connection = DriverManager.getConnection("jdbc:mysql://localhost:3333/cri_db?user=root&password=091992pgm$*");
 					System.out.println("Connexion");
 					} catch (SQLException e) {
 					e.printStackTrace();
@@ -56,13 +56,17 @@ private static final long serialVersionUID = 1L;
 			JDBCPieDataset dataset = new JDBCPieDataset(connection);
 			
 			try {
-					dataset.executeQuery("select p.nomPays,count(*) from demande d,entreprise e,pays p where d.idEntreprise=e.idEntreprise and e.idPays=p.idPays group by p.nomPays");
+					dataset.executeQuery("select p.nomPays,count(*) "
+							+ "from demande d,entreprise e,pays p "
+							+ "where d.idEntreprise=e.idEntreprise and e.idPays=p.idPays and substr(d.date,-4)>='"+request.getParameter("AnneeInf")+"' and substr(d.date,-4)<= '"+request.getParameter("AnneeSup")+"' "
+							+ "group by p.nomPays");
 					System.out.println("Query");
-					JFreeChart chart = ChartFactory.createPieChart("Répartition des demandes de partenariat selon la nationalité", dataset, true, true, false);
+					JFreeChart chart = ChartFactory.createPieChart("Répartition des demandes de partenariat selon la nationalité", dataset, true, true,false);
 					
 					chart.setBorderPaint(Color.black);
 					chart.setBorderStroke(new BasicStroke(0.0f));
 					chart.setBorderVisible(true);
+					
 					
 					
 					if (chart != null)

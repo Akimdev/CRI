@@ -42,7 +42,7 @@ private static final long serialVersionUID = 1L;
 					Class.forName("com.mysql.jdbc.Driver");
 					System.out.println("Driver");
 					try {
-					connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/cri_db?user=root&password=091992pgm$*");
+					connection = DriverManager.getConnection("jdbc:mysql://localhost:3333/cri_db?user=root&password=091992pgm$*");
 					System.out.println("Connexion");
 					} catch (SQLException e) {
 					e.printStackTrace();
@@ -68,7 +68,7 @@ private static final long serialVersionUID = 1L;
                  
 				 dataset.executeQuery("select s.designiation,count(*) "
 									+ "from demande d, secteur s "
-									+ "where d.idSecteur=s.idSecteur "+SurSect
+									+ "where d.idSecteur=s.idSecteur "+SurSect+" and substr(d.date,-4)>='"+request.getParameter("AnneeInf")+"' and substr(d.date,-4)<= '"+request.getParameter("AnneeSup")+"' "
 									+ " group by s.designiation;");
 				
 				System.out.println("Query");

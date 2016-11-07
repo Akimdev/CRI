@@ -1,38 +1,18 @@
 package controller;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.io.OutputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 import javax.servlet.http.HttpSession;
-import javax.mail.internet.MimeMessage;
+
 import org.hibernate.exception.ConstraintViolationException;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartRenderingInfo;
-import org.jfree.chart.ChartUtilities;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.entity.StandardEntityCollection;
-import org.jfree.data.general.Dataset;
-import org.jfree.data.general.PieDataset;
-import org.jfree.data.jdbc.JDBCPieDataset;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
-import org.springframework.mail.MailSender;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import dao.Demande;
 import dao.DemandeId;
@@ -50,7 +30,7 @@ import service.UtilisateurMetier;
 @Controller
 public class AdminController {
 
-	@Autowired
+	@Autowired  
 	PaysMetier serivcePays;
 	@Autowired
 	SecteurMetier serviceSecteur;
@@ -62,8 +42,8 @@ public class AdminController {
     DemandeMetier serviceDemande;
     @Autowired
     PartenariatMetier servicePartenariat;
-    @Autowired
-    private JavaMailSender mailSender;
+    
+    
     
     @RequestMapping(value="/DemandesEntreprises")
     public String DemandesEntreprises(Model model
@@ -79,7 +59,7 @@ public class AdminController {
 			model.addAttribute("nb_DemandesEntreprise", entreprisesInv.size());
 			model.addAttribute("nb_DemandesPartenariat", demandesInv.size());
 			
-	    	return "DemandesEntreprises";
+	    	return "admin/DemandesEntreprises";
 	    	
 	    }catch(Exception e)
 		{
@@ -88,7 +68,7 @@ public class AdminController {
 	        List<Demande> demandes = (List<Demande>) serviceDemande.getValideDemandes();
 	        model.addAttribute("demandes", demandes);
 	        
-	    	return "index";
+	    	return "public/index";
 		}
     	
 //    	return serviceEntreprise.DemandesEntreprises(model,session);
@@ -111,7 +91,7 @@ public class AdminController {
 			model.addAttribute("nb_DemandesEntreprise", entreprisesInv.size());
 			model.addAttribute("nb_DemandesPartenariat", demandesInv.size());
 			
-	    	return "espaceAdmin";
+	    	return "admin/espaceAdmin";
 	    	
 	    }catch(Exception e)
 	  		{
@@ -120,7 +100,7 @@ public class AdminController {
 	  	        List<Demande> demandes = (List<Demande>) serviceDemande.getValideDemandes();
 	  	        model.addAttribute("demandes", demandes);
 	  	        
-	  	    	return "index";
+	  	    	return "public/index";
 	  		}
     
 //		return DemandesDePartenariat(model ,session);
@@ -160,7 +140,7 @@ public class AdminController {
 			model.addAttribute("nb_DemandesEntreprise", entreprisesInv.size());
 			model.addAttribute("nb_DemandesPartenariat", demandesInv.size());
 			
-			return "espaceAdmin";
+			return "admin/espaceAdmin";
 			
 		   }catch(Exception e)
 	  		{
@@ -169,7 +149,7 @@ public class AdminController {
 	  	        List<Demande> demandes = (List<Demande>) serviceDemande.getValideDemandes();
 	  	        model.addAttribute("demandes", demandes);
 	  	        
-	  	    	return "index";
+	  	    	return "public/index";
 	  		}
 		
 //		return SupprimerDemande(model,session,idEntreprise,idSecteur,idPartenariat);
@@ -234,11 +214,14 @@ public class AdminController {
 	    	List<Demande> demandesInv = (List<Demande>) serviceDemande.getInvalideDemandes();
 	    	List<Demande> demandes = (List<Demande>) serviceDemande.getAllDemandes();
 	    	
+	    	session.setAttribute("nb_demandes_valides", demandes.size()-demandesInv.size());
+	    	
+	    	
 			model.addAttribute("demandes", demandes);
 			model.addAttribute("nb_DemandesEntreprise", entreprisesInv.size());
 			model.addAttribute("nb_DemandesPartenariat", demandesInv.size());
 			
-			return "espaceAdmin";
+			return "admin/espaceAdmin";
 		
 	   }catch(Exception e)
  		{
@@ -247,7 +230,7 @@ public class AdminController {
  	        List<Demande> demandes = (List<Demande>) serviceDemande.getValideDemandes();
  	        model.addAttribute("demandes", demandes);
  	        
- 	    	return "index";
+ 	    	return "public/index";
  		}
 		
 //		return ValiderDemande(model,session,password,profile,idEntreprise,idSecteur,idPartenariat,nomEntreprise,descriptionEntreprise,webEntreprise,nomContact,prenomContact,emailContact,descriptionDemande);
@@ -274,7 +257,7 @@ public class AdminController {
 				model.addAttribute("nb_DemandesEntreprise", entreprisesInv.size());
 				model.addAttribute("nb_DemandesPartenariat", demandesInv.size());
 				
-				return "DemandesEntreprises";
+				return "admin/DemandesEntreprises";
 				
 		   }catch(Exception e)
 	 		{
@@ -283,7 +266,7 @@ public class AdminController {
 	 	        List<Demande> demandes = (List<Demande>) serviceDemande.getValideDemandes();
 	 	        model.addAttribute("demandes", demandes);
 	 	        
-	 	    	return "index";
+	 	    	return "public/index";
 	 		}
 //		return SupprimerEntreprise(model,session,idEntreprise);
 	}
@@ -291,24 +274,24 @@ public class AdminController {
 
 	@RequestMapping(value="/ValiderEntreprise")
 	public String ValiderEntreprise(Model model
-								,HttpSession session
-								,@RequestParam String password
-								,@RequestParam String profile
-								,@RequestParam String idEntreprise
-								,@RequestParam String nomEntreprise
-								,@RequestParam String adresseEntreprise
-								,@RequestParam String villeEntreprise
-								,@RequestParam String description
-								,@RequestParam String webEntreprise
-								,@RequestParam String nomContact
-								,@RequestParam String prenomContact
-								,@RequestParam String fonctionContact
-								,@RequestParam String emailContact
-								,@RequestParam String telContact
-								,@RequestParam String faxContact)
+									,HttpSession session
+									,@RequestParam String password
+									,@RequestParam String profile
+									,@RequestParam String idEntreprise
+									,@RequestParam String nomEntreprise
+									,@RequestParam String adresseEntreprise
+									,@RequestParam String villeEntreprise
+									,@RequestParam String description
+									,@RequestParam String webEntreprise
+									,@RequestParam String nomContact
+									,@RequestParam String prenomContact
+									,@RequestParam String fonctionContact
+									,@RequestParam String emailContact
+									,@RequestParam String telContact
+									,@RequestParam String faxContact)
 	{
 		
-		try{
+		
 	    		String ok = session.getAttribute("idUtilisateur").toString();
 	    		
 				Entreprise entreprise = serviceEntreprise.getEntreprisebyId(Integer.parseInt(idEntreprise));
@@ -349,16 +332,16 @@ public class AdminController {
 //	                 
 //	                }
 //			      });
-				
-				SimpleMailMessage mailMessage = new SimpleMailMessage();
-
-				mailMessage.setTo("saifiothmane@gmail.com");
-				mailMessage.setSubject("This is the test message for testing gmail smtp server using spring mail");
-				mailMessage.setFrom("saifipgm@gmail.com");
-				mailMessage.setText("This is the test message for testing gmail smtp server using spring mail. \n" +
-				        "Thanks \n Regards \n Saurabh ");
-				mailSender.send(mailMessage);
-			
+//				
+//				SimpleMailMessage mailMessage = new SimpleMailMessage();
+//
+//				mailMessage.setTo("saifiothmane@gmail.com");
+//				mailMessage.setSubject("This is the test message for testing gmail smtp server using spring mail");
+//				mailMessage.setFrom("saifipgm@gmail.com");
+//				mailMessage.setText("This is the test message for testing gmail smtp server using spring mail. \n" +
+//				        "Thanks \n Regards \n Saurabh ");
+//				mailSender.send(mailMessage);
+//			
 				List<Entreprise> entreprisesInv = (List<Entreprise>) serviceEntreprise.getInValideEntreprise();
 		    	List<Demande> demandesInv = (List<Demande>) serviceDemande.getInvalideDemandes();
 		    	
@@ -366,17 +349,17 @@ public class AdminController {
 				model.addAttribute("nb_DemandesEntreprise", entreprisesInv.size());
 				model.addAttribute("nb_DemandesPartenariat", demandesInv.size());
 				
-				return "DemandesEntreprises";
-		
-	   }catch(Exception e)
-	 		{
-	 			session.invalidate();
-	 	    	
-	 	        List<Demande> demandes = (List<Demande>) serviceDemande.getValideDemandes();
-	 	        model.addAttribute("demandes", demandes);
-	 	        
-	 	    	return "index";
-	 		}
+				return "admin/DemandesEntreprises";
+//				try{
+//	   }catch(Exception e)
+//	 		{
+//	 			session.invalidate();
+//	 	    	
+//	 	        List<Demande> demandes = (List<Demande>) serviceDemande.getValideDemandes();
+//	 	        model.addAttribute("demandes", demandes);
+//	 	        
+//	 	    	return "index";
+//	 		}
 //		return ValiderEntreprise(model,session,idEntreprise,nomEntreprise,descriptionEntreprise,webEntreprise,nomContact,prenomContact,emailContact);
 	}
 	
@@ -413,7 +396,7 @@ public class AdminController {
 				model.addAttribute("nb_DemandesEntreprise", entreprisesInv.size());
 				model.addAttribute("nb_DemandesPartenariat", demandesInv.size());
 		        
-		        return "espaceAdmin";
+		        return "admin/espaceAdmin";
 		        
 		  }catch(Exception e)
 	 		{
@@ -422,7 +405,7 @@ public class AdminController {
 	 	        List<Demande> demandes = (List<Demande>) serviceDemande.getValideDemandes();
 	 	        model.addAttribute("demandes", demandes);
 	 	        
-	 	    	return "index";
+	 	    	return "public/index";
 	 		}
 //	        return FilterDemandes(model,session,date,nomEntreprise,nomPays,designiationSecteurE,descriptionEntreprise,siteWeb,nomContact,prenomContact,emailContact,designiationSecteurD,designiationPartenariat,descriptionDemande,engagement);
 	        
@@ -461,7 +444,7 @@ public class AdminController {
 				model.addAttribute("nb_DemandesEntreprise", entreprisesInv.size());
 				model.addAttribute("nb_DemandesPartenariat", demandesInv.size());
 				
-		    	return "DemandesEntreprises";
+		    	return "admin/DemandesEntreprises";
     	
 		  }catch(Exception e)
 			{
@@ -470,7 +453,7 @@ public class AdminController {
 		        List<Demande> demandes = (List<Demande>) serviceDemande.getValideDemandes();
 		        model.addAttribute("demandes", demandes);
 		        
-		    	return "index";
+		    	return "public/index";
 			}
 		
 //		return 	FilterEntreprisesInv(model,session,nomEntreprise,nomPays,villeEntreprise,secteur,description,adresseEntreprise,siteWeb,registre,nomContact,prenomContact,civilite,fonction,emailContact,fix,fax);
@@ -487,7 +470,7 @@ public class AdminController {
 				List<Utilisateur> utilisateurs = serviceUtilisateur.getAllUtilisateurs();
 				model.addAttribute("utilisateurs", utilisateurs);
 				
-				return "GestionUtilisateurs";
+				return "admin/GestionUtilisateurs";
 
 		  }catch(Exception e)
 			{
@@ -496,7 +479,7 @@ public class AdminController {
 		        List<Demande> demandes = (List<Demande>) serviceDemande.getValideDemandes();
 		        model.addAttribute("demandes", demandes);
 		        
-		    	return "index";
+		    	return "public/index";
 			}
 		
 	}
@@ -510,7 +493,7 @@ public class AdminController {
 		    List<Utilisateur> utilisateurs = new ArrayList<Utilisateur>();
 			utilisateurs.add(serviceUtilisateur.getUtilisateurbyId(Integer.parseInt(idUtilisateur)));
 			model.addAttribute("utilisateurs", utilisateurs);
-			return "GestionUtilisateurs";
+			return "admin/GestionUtilisateurs";
 		
 
 		  }catch(Exception e)
@@ -520,7 +503,7 @@ public class AdminController {
 		        List<Demande> demandes = (List<Demande>) serviceDemande.getValideDemandes();
 		        model.addAttribute("demandes", demandes);
 		        
-		    	return "index";
+		    	return "public/index";
 			}
 		}
 	
@@ -535,7 +518,7 @@ public class AdminController {
     		List<Utilisateur> utilisateurs = serviceUtilisateur.getAllUtilisateurs();
 			model.addAttribute("utilisateurs", utilisateurs);
 			
-			return "AjouterUtilisateur";
+			return "admin/AjouterUtilisateur";
 			
 		 }catch(Exception e)
 			{
@@ -544,7 +527,7 @@ public class AdminController {
 		        List<Demande> demandes = (List<Demande>) serviceDemande.getValideDemandes();
 		        model.addAttribute("demandes", demandes);
 		        
-		    	return "index";
+		    	return "public/index";
 			}
 		
 	}
@@ -560,7 +543,7 @@ public class AdminController {
 				List<Utilisateur> utilisateurs = serviceUtilisateur.getAllUtilisateurs();
 				model.addAttribute("utilisateurs", utilisateurs);
 				
-				return "GestionUtilisateurs";
+				return "admin/GestionUtilisateurs";
 		
 		 }catch(Exception e)
 			{
@@ -569,7 +552,7 @@ public class AdminController {
 		        List<Demande> demandes = (List<Demande>) serviceDemande.getValideDemandes();
 		        model.addAttribute("demandes", demandes);
 		        
-		    	return "index";
+		    	return "public/index";
 			}
 	}
 	
@@ -583,7 +566,7 @@ public class AdminController {
 			List<Utilisateur> utilisateurs = serviceUtilisateur.getAllUtilisateurs();
 			model.addAttribute("utilisateurs", utilisateurs);
 			
-			return "GestionUtilisateurs";
+			return "admin/GestionUtilisateurs";
 			
 		 }catch(Exception e)
 			{
@@ -592,7 +575,7 @@ public class AdminController {
 		        List<Demande> demandes = (List<Demande>) serviceDemande.getValideDemandes();
 		        model.addAttribute("demandes", demandes);
 		        
-		    	return "index";
+		    	return "public/index";
 			}
 	}
 	
@@ -609,7 +592,7 @@ public class AdminController {
 			model.addAttribute("SurSecteurs", SurSecteurs);
 			model.addAttribute("SousSecteurs", SousSecteurs);
 			
-			return "AjouterSecteur";
+			return "admin/AjouterSecteur";
 			
 		 }catch(Exception e)
 			{
@@ -618,7 +601,7 @@ public class AdminController {
 		        List<Demande> demandes = (List<Demande>) serviceDemande.getValideDemandes();
 		        model.addAttribute("demandes", demandes);
 		        
-		    	return "index";
+		    	return "public/index";
 			}
 	}
 	
@@ -636,7 +619,7 @@ public class AdminController {
 			model.addAttribute("SurSecteurs", SurSecteurs);
 			model.addAttribute("msgAjSect", "Secteur bien ajouté");
 			
-			return "AjouterSecteur";
+			return "admin/AjouterSecteur";
 			
 		 }catch(Exception e)
 			{
@@ -645,7 +628,7 @@ public class AdminController {
 		        List<Demande> demandes = (List<Demande>) serviceDemande.getValideDemandes();
 		        model.addAttribute("demandes", demandes);
 		        
-		    	return "index";
+		    	return "public/index";
 			}
 		
 		
@@ -666,7 +649,7 @@ public class AdminController {
 			model.addAttribute("SurSecteurs", SurSecteurs);
 			model.addAttribute("msgAjSousSect", "Sous-secteur bien ajouté");
 			
-			return "AjouterSecteur";
+			return "admin/AjouterSecteur";
 		
 		 }catch(Exception e)
 			{
@@ -675,7 +658,7 @@ public class AdminController {
 		        List<Demande> demandes = (List<Demande>) serviceDemande.getValideDemandes();
 		        model.addAttribute("demandes", demandes);
 		        
-		    	return "index";
+		    	return "public/index";
 			}
 			
 	}
@@ -701,7 +684,7 @@ public class AdminController {
 					
 					model.addAttribute("SurSecteurs", SurSecteurs);
 					model.addAttribute("SousSecteurs", SousSecteurs);
-					return "AjouterSecteur";
+					return "admin/AjouterSecteur";
 				}
 				
 		}catch(Exception e)
@@ -711,7 +694,7 @@ public class AdminController {
 	        List<Demande> demandes = (List<Demande>) serviceDemande.getValideDemandes();
 	        model.addAttribute("demandes", demandes);
 	        
-	    	return "index";
+	    	return "public/index";
 		}
 		
 	}
@@ -730,7 +713,7 @@ public class AdminController {
 				model.addAttribute("SurSecteurs", SurSecteurs);
 				model.addAttribute("SousSecteurs", SousSecteurs);
 				model.addAttribute("msgSupSousSect", "Sous-secteur bien supprimé");
-				return "AjouterSecteur";
+				return "admin/AjouterSecteur";
 				
 			}catch(Exception e)
 			{
@@ -739,7 +722,7 @@ public class AdminController {
 		        List<Demande> demandes = (List<Demande>) serviceDemande.getValideDemandes();
 		        model.addAttribute("demandes", demandes);
 		        
-		    	return "index";
+		    	return "public/index";
 			}
 	}
 	

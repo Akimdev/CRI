@@ -59,53 +59,10 @@
 </div>
 			<div class="container-fluid">
 				<div class="row-fluid">
-					<div class="span3">
+					<div  class="span3">
 						
-						<!--Authentification-->
-
-						<ul class="nav nav-list well">
-							<li class="nav-header" class="navheader" style="font-family:OpenSansCondensed;text-align:center;color:#9197a3;">Authentification</li>
-							 <li class="divider"></li> 
-	  <form method="post" action="Authentification.aspx">    
-           
-               <p>Email :</p>
-               <input type="text" name="login" id="email" class="span14" placeholder="email@email.com" />
-               <p>Mot de passe :</p>             
-               <input type="password" name="password" id="pass" class="span14" />
-               <p style="color:red"> ${erreur_msg}</p>
-		       <div class="checkbox">
-		             <label>
-		              <input type="checkbox" style="">se souvenir de moi 
-		             </label>
-               </div>
-               
-               
-              <button type="submit" style="text-align:right;margin:7px;" class='btn btn-primary'>Connexion</button>
-      </form>
-      
-      
-      <li class="divider"></li> 
-      <form method="post" action="inscription.aspx">
-            <input type="hidden" name="idEntreprise" value="1">
-     		<div class="inscrire"> <p>pas encore inscrit? </p></div><button style="position:relative;left:2px;"type="submit" class="btn btn-success">S'inscrire</button>
-      </form>
-         
-    
-
-        
-         
-
-						</ul>
-						<br>
-						<ul class="nav nav-list well">
-							<li class="nav-header">Partenaires</li>
-
-							<li><a href="#"><i class='icon-chevron-right'></i>Partenaires nationaux</a></li>
-							<li><a href="#"><i class='icon-chevron-right'></i>Partenaires internationaux</a></li>
-							<li><a href="#"><i class='icon-chevron-right'></i>Rencontres BtoB</a></li>
-
-
-						</ul>
+						<%@include file="Authentification.jsp" %>
+						
 					</div>
 
 		
@@ -118,14 +75,15 @@
 	
 
                    <!-- Tableau au user public  -->
-					<div style="overflow:scroll">		
-					<table class="table table-striped">
+					<div  style="overflow:scroll">	
+ <span id="filter">	
+					<table  class="table table-striped">
 								<tr>
                                      <form action="FilterDemandesValides.aspx" id="myform" method="get" >   
                                     	                             
                                     		 <th></th>
-		                                     <th><div id="input_container"><input type='text' id="date" name="date"  Placeholder='Date de la demande' style="max-width:150px;" ><img src="img/loope.png" class="submitableimage" id="input_img"></input></div></th>
-		                                     <th><input type='text' id="nomPays" name="nomPays"  Placeholder="Pays de l'entreprise"  style="max-width:150px;" ><img src="img/loope.png" class="submitableimage" id="input_img"></input></th>
+		                                     <th><div id="input_container"><input type='text' id="date" name="date"  Placeholder='Date de la demande' style="max-width:150px;"><img src="img/loope.png" class="submitableimage" id="input_img"></input></div></th>
+		                                     <th><input type='text' id="nomPays" name="nomPays"   Placeholder="Pays de l'entreprise"  style="max-width:150px;" ><img src="img/loope.png" class="submitableimage" id="input_img"></input></th>
 											 <th><input type='text' id="designiationSecteurE" name="designiationSecteurE"  Placeholder="Secteur d'activité" style="max-width:130px" ><img src="img/loope.png" class="submitableimage" id="input_img"></input></th>
 		                                     <th><input type='text' id="descriptionEntreprise" name="descriptionEntreprise"  Placeholder="Présentation de l'entreprise" style="max-width:220px;"><img src="img/loope.png" class="submitableimage" id="input_img"></input></th>
 		                                     <th><input type='text' id="designiationSecteurD" name="designiationSecteurD"  Placeholder='Secteur objet de partenariat' style="max-width:205px" ><img src="img/loope.png" class="submitableimage" id="input_img"></input></th>
@@ -135,6 +93,7 @@
 		                            </form>  
 		                            
                                </tr>
+
 							  <% int i = 1;
 							      String varClass ;
 							  %>
@@ -165,9 +124,10 @@
 										   </tr>
 			                   
                               </o:forEach>        
-                              
+                           
                               
                        </table>
+   </span> 
                    </div>
 							
 	
@@ -224,10 +184,13 @@
 	function load()
 	{
 		alert("1");
-		var xmlHttp;
+		var xmlhttp;
 		alert("2");
 		xmlHttp = new XMLHttpRequest();
 		alert("3");
+		
+		
+	
 		
 		xmlhttp.onreadystatechange = function (){
 			alert("4");
@@ -246,17 +209,48 @@
 	 xmlhttp.send();
 	  
 	}
-	
-	
-
-	
+		
+		
+		
+		
 	   $('img.submitableimage').click(function(){
-	      $('#myform').submit();
+	     
+		var xmlhttp;
+		xmlhttp = new XMLHttpRequest;
+		
+		
+	  	var date= document.getElementById("date").value;
+		var nomPays= document.getElementById("nomPays").value;
+		var designiationSecteurE= document.getElementById("designiationSecteurE").value;
+		var descriptionEntreprise= document.getElementById("descriptionEntreprise").value;
+		var designiationSecteurD= document.getElementById("designiationSecteurD").value;
+		var designiationPartenariat= document.getElementById("designiationPartenariat").value;
+		var descriptionDemande= document.getElementById("descriptionDemande").value;
+		var engagement= document.getElementById("engagement").value;
+	
+		alert("gotten params");
+			
+		xmlhttp.onreadystatechange = function (){
+			
+			if( xmlhttp.readyState == 4  & xmlhttp.status == 200 )
+			{alert("response");
+				document.getElementById("filter").innerHTML = xmlhttp.responseText;
+			}
+			
+		}
+			
+		xmlhttp.open("GET", "FilterDemandesValides.aspx?date="+date+"&nomPays="+nomPays+"&designiationSecteurE="+designiationSecteurE+"&descriptionEntreprise="+descriptionEntreprise+"&designiationSecteurD="+designiationSecteurD+"&designiationPartenariat="+designiationPartenariat+"&descriptionDemande="+descriptionDemande+"&engagement="+engagement, true);
+		 xmlhttp.send();
+		 
+		 alert("Sent"); 	
 	   });
-
+		
+	 
+	   
+	   
 	</script>
 	
-	
+
 	
 	
 </body>

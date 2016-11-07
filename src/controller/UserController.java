@@ -54,7 +54,7 @@ public class UserController {
 			model.addAttribute("SousSecteurs", SousSecteurs);
 			model.addAttribute("Partenariats", partenariats);
 			
-	    	return "PosterDemande";
+	    	return "user/PosterDemande";
 	    }
 	    
 	    @RequestMapping(value="/ValiderDemandeUtilisateur")
@@ -80,7 +80,7 @@ public class UserController {
 				
 		    	serviceDemande.AjouterDemande(demande);
 		    	model.addAttribute("mail","Votre Compte");
-		    	return "End";
+		    	return "user/End";
 		    	
 		    	
 		    }catch(Exception e)
@@ -90,7 +90,7 @@ public class UserController {
 	            List<Demande> demandes = (List<Demande>) serviceDemande.getValideDemandes();
 	            model.addAttribute("demandes", demandes);
 	            
-	        	return "index";
+	        	return "public/index";
 	    	}
 	    }
 	  
@@ -98,7 +98,7 @@ public class UserController {
 	    @RequestMapping(value="/MonProfile")
 	    public String MonProfile(Model model,HttpSession session)
 	    {
-	    	return "MonProfile";
+	    	return "user/MonProfile";
 	    }
 	    
 	    @RequestMapping(value="/SupprimerUserDemande")
@@ -119,7 +119,7 @@ public class UserController {
 		    	List<Demande> demandes = (List<Demande>) serviceUtilisateur.getAllDemandes(Integer.parseInt(session.getAttribute("idUtilisateur").toString()));
 				model.addAttribute("demandes", demandes);
 				
-		    	return "espaceUser";
+		    	return "user/espaceUser";
 		    	
 	    	
 	    }catch(Exception e)
@@ -129,7 +129,7 @@ public class UserController {
             List<Demande> demandes = (List<Demande>) serviceDemande.getValideDemandes();
             model.addAttribute("demandes", demandes);
             
-        	return "index";
+        	return "public/index";
     	}
 	    }
 	    

@@ -42,7 +42,7 @@ private static final long serialVersionUID = 1L;
 					Class.forName("com.mysql.jdbc.Driver");
 					System.out.println("Driver");
 					try {
-					connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/cri_db?user=root&password=091992pgm$*");
+					connection = DriverManager.getConnection("jdbc:mysql://localhost:3333/cri_db?user=root&password=091992pgm$*");
 					System.out.println("Connexion");
 					} catch (SQLException e) {
 					e.printStackTrace();
@@ -60,7 +60,7 @@ private static final long serialVersionUID = 1L;
 				dataset.executeQuery("select sur.designiation,count(*) "
 									+ "from demande d, secteur sous,secteur sur "
 									+ "where d.idSecteur=sous.idSecteur and "
-									+ "sous.idSurSecteur=sur.idSecteur "
+									+ "sous.idSurSecteur=sur.idSecteur and substr(d.date,-4)>='"+request.getParameter("AnneeInf")+"' and substr(d.date,-4)<= '"+request.getParameter("AnneeSup")+"' "
 									+ "group by sur.designiation;");
 				System.out.println("Query");
 					JFreeChart chart = ChartFactory.createPieChart("Répartition des demandes de partenariat selon le Secteur objet de la partenariat", dataset, true, true, false);

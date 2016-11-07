@@ -43,12 +43,38 @@ public class StatistiqueController {
 	    PartenariatMetier servicePartenariat;
 	 
 	    
+	    
+		
+		@RequestMapping(value="/Statistique")
+		public String Statistique(Model model,HttpSession session)
+		{
+			
+			try{
+				 
+				String ok = session.getAttribute("idUtilisateur").toString();
+			    
+			  return "stats/Statistique";
+			   }catch(Exception e)
+				{
+					session.invalidate();
+			    	
+			        List<Demande> demandes = (List<Demande>) serviceDemande.getValideDemandes();
+			        model.addAttribute("demandes", demandes);
+			        
+			    	return "public/index";
+				}
+			  
+		}
+		
+	    
+	    
+	    
 	    @RequestMapping(value="/StatDemandesParPays")
 	    public String StatDemandesParPays(Model model,HttpSession session)
 	    {
 	    	try{
 		        String ok = session.getAttribute("idUtilisateur").toString();
-		    	return "StatDemandesParPays";
+		    	return "stats/StatDemandesParPays";
 	    	}catch(Exception e)
 	    	{
 	    		session.invalidate();
@@ -56,7 +82,7 @@ public class StatistiqueController {
 	            List<Demande> demandes = (List<Demande>) serviceDemande.getValideDemandes();
 	            model.addAttribute("demandes", demandes);
 	            
-	        	return "index";
+	        	return "public/index";
 	    	}
 	    }
 	   
@@ -65,7 +91,7 @@ public class StatistiqueController {
 	    {
 	      	try{
 		        String ok = session.getAttribute("idUtilisateur").toString(); 
-		        return "StatDemandesParSecteur";
+		        return "stats/StatDemandesParSecteur";
 		    }catch(Exception e)
 	    	{
 	    		session.invalidate();
@@ -73,7 +99,7 @@ public class StatistiqueController {
 	            List<Demande> demandes = (List<Demande>) serviceDemande.getValideDemandes();
 	            model.addAttribute("demandes", demandes);
 	            
-	        	return "index";
+	        	return "public/index";
 	    	}
 	    }
 	    
@@ -93,7 +119,7 @@ public class StatistiqueController {
 		    	
 		    	model.addAttribute("param",param);
 		    	model.addAttribute("SurSecteurs", SurSecteurs);
-		    	return "StatDemandesParSousSecteur";
+		    	return "stats/StatDemandesParSousSecteur";
 		    	
 	        }catch(Exception e)
 	    	{
@@ -102,7 +128,7 @@ public class StatistiqueController {
 	            List<Demande> demandes = (List<Demande>) serviceDemande.getValideDemandes();
 	            model.addAttribute("demandes", demandes);
 	            
-	        	return "index";
+	        	return "public/index";
 	    	}
 	    }
 	    
@@ -113,7 +139,7 @@ public class StatistiqueController {
 	        
 	    	try{
 			        String ok = session.getAttribute("idUtilisateur").toString();
-			        return "StatDemandesParAnnee";
+			        return "stats/StatDemandesParAnnee";
 				    	
 			    }catch(Exception e)
 		    	{
@@ -122,7 +148,7 @@ public class StatistiqueController {
 		            List<Demande> demandes = (List<Demande>) serviceDemande.getValideDemandes();
 		            model.addAttribute("demandes", demandes);
 		            
-		        	return "index";
+		        	return "public/index";
 		    	}
 	    }
 	    

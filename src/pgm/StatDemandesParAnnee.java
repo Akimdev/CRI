@@ -47,7 +47,7 @@ private static final long serialVersionUID = 1L;
 					Class.forName("com.mysql.jdbc.Driver");
 					System.out.println("Driver");
 					try {
-					connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/cri_db?user=root&password=091992pgm$*");
+					connection = DriverManager.getConnection("jdbc:mysql://localhost:3333/cri_db?user=root&password=091992pgm$*");
 					System.out.println("Connexion");
 					} catch (SQLException e) {
 					e.printStackTrace();
@@ -64,7 +64,7 @@ private static final long serialVersionUID = 1L;
 				
 				dataset.executeQuery("select substr(date,-4) annee,count(*) 'Nombre de partenariats' "
 									+ "from demande "
-									+ "where valide=true "
+									+ "where valide=true and substr(date,-4)>='"+request.getParameter("AnneeInf")+"' and substr(date,-4)<= '"+request.getParameter("AnneeSup")+"' "
 									+ "group by annee;");
 									
 							System.out.println("Query");

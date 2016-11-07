@@ -1,6 +1,6 @@
 package dao;
 
-// Generated 6 févr. 2015 12:12:16 by Hibernate Tools 4.0.0
+// Generated 1 mars 2015 20:34:08 by Hibernate Tools 4.0.0
 
 import java.util.HashSet;
 import java.util.Set;
@@ -31,6 +31,7 @@ public class Utilisateur implements java.io.Serializable {
 	private String profile;
 	private String fonction;
 	private Set<Entreprise> entreprises = new HashSet<Entreprise>(0);
+	private Set<Message> messages = new HashSet<Message>(0);
 	private Set<Utilisateur> utilisateurs = new HashSet<Utilisateur>(0);
 
 	public Utilisateur() {
@@ -48,7 +49,8 @@ public class Utilisateur implements java.io.Serializable {
 
 	public Utilisateur(Utilisateur utilisateur, String login, String password,
 			String organisme, String type, String profile, String fonction,
-			Set<Entreprise> entreprises, Set<Utilisateur> utilisateurs) {
+			Set<Entreprise> entreprises, Set<Message> messages,
+			Set<Utilisateur> utilisateurs) {
 		this.utilisateur = utilisateur;
 		this.login = login;
 		this.password = password;
@@ -57,6 +59,7 @@ public class Utilisateur implements java.io.Serializable {
 		this.profile = profile;
 		this.fonction = fonction;
 		this.entreprises = entreprises;
+		this.messages = messages;
 		this.utilisateurs = utilisateurs;
 	}
 
@@ -142,6 +145,15 @@ public class Utilisateur implements java.io.Serializable {
 
 	public void setEntreprises(Set<Entreprise> entreprises) {
 		this.entreprises = entreprises;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "utilisateur")
+	public Set<Message> getMessages() {
+		return this.messages;
+	}
+
+	public void setMessages(Set<Message> messages) {
+		this.messages = messages;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "utilisateur")

@@ -61,7 +61,7 @@ public class DemandeImplMetier implements DemandeMetier{
 		// TODO Auto-generated method stub
 		return dao.getInvalideDemandes();
 	}
-
+  
 	@Override
 	public List<Demande> getValideDemandes(String date, String nomPays,
 			String designiationSecteurE, String descriptionEntreprise,

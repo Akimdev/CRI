@@ -1,6 +1,6 @@
 package dao;
 
-// Generated 6 févr. 2015 12:12:16 by Hibernate Tools 4.0.0
+// Generated 1 mars 2015 20:34:08 by Hibernate Tools 4.0.0
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;

@@ -7,7 +7,7 @@
 	<meta charset="UTF-8">
 	<title>CRI - Bourse Régionale </title>
 	<link rel="stylesheet" href="css/bootstrap.min.css">
-	
+	<link href="css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
 	<link rel="stylesheet" href="css/membr.css">
 
 </head>
@@ -74,12 +74,9 @@
 					
 	  <div class="span9 well">
 						
+
 		
-		
-		
-		
-		
-		
+		content here ...
 		
        
       </div>
@@ -101,9 +98,5 @@
 
 
 
-
-
-	<script src="js/jquery.js"></script>
-	<script src="js/bootstrap.min.js"></script>
 </body>
 </html>

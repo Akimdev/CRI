@@ -64,7 +64,7 @@
 				     <li><a href="MonProfile.aspx">Mon profile</a></li> 
 			         <li class="active"><a href="Authentification.aspx" style="">Mes demandes de partenariat</a></li>	
 			         <li><a href="PosterDemande.aspx">Poster une nouvelle demande</a></li>
-			         <li><a href="">Contacter l'administrateur</a></li>
+			         <li><a href="NousContacter.aspx">Contacter l'administrateur</a></li>
 			         <li><a href="parametre.html">Mes Paramètres</a></li>
 			         <li class="divider"></li> 
 			         <li><a href="index.aspx"><button style="position:relative;left:2px;"type="submit" class="btn btn-inverse">Se déconnecter</button></a></li>   

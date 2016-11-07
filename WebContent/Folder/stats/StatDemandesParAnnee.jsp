@@ -72,12 +72,31 @@
 		<div class="span9" >
 		<div class="well">
 				
+				<div >
+				    Entre l'année 
+					<select id="AnneeInf" onChange="fct()" name="AnneeInf">
+					<%for( int i=2000;i<2020.;i++){ %>
+					<option value="<%=i %>"><%=i %></option>
+					<%} %>
+					</select>
+					
+					et
+					
+					<select id="AnneeSup" onChange="fct()" name="AnneeSup">
+					<%for( int i=2000;i<=2020;i++){ %>
+					<option value="<%=i %>"><%=i %></option>
+					<%if(i==2019){i++; %>
+					<option value="<%=i %>" selected><%=i %></option>
+					<%i++;} %>
+					<%} %>
+					</select>
+			 </div>
 				
 	
 			   <form id="form1">
-			   <center>
-					  <img id ="StatDemandesParAnnee" src="StatDemandesParAnnee" width="900" height="400" border="0"/>
-				</center>
+			   <div id="cible">
+			   		 <center><img id ="StatDemandesParAnnee" src="StatDemandesParAnnee?AnneeInf=2000&AnneeSup=2020" width="900" height="400" border="0"/></center>
+				</div>
 					</form> 
 				
        </div> 
@@ -103,12 +122,18 @@
 	
     <script language="Javascript"> 
   
+		    function fct()
+			{
+				
+				var AnneeInf =  document.getElementById("AnneeInf").value;
+				var AnneeSup =  document.getElementById("AnneeSup").value;
+				
+				document.getElementById("cible").innerHTML =   '<center><img id ="StatDemandesParAnnee" src="StatDemandesParAnnee?AnneeInf='+AnneeInf+'&AnneeSup='+AnneeSup+'" width="900" height="400" border="0"/></center>'
+				
+			}
 			
 			
 			
-			 $('img.submitableimage').click(function(){
-				      $('#myform').submit();
-			 });
 			
 	 
 			 

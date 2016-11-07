@@ -13,7 +13,7 @@
 
 </head>
 <body>
-	<div class="container">
+	
 		<div class="header">
 
 			<div class="logo pull-left">

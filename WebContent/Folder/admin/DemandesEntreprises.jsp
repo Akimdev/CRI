@@ -66,7 +66,7 @@
 	         <li><a href="DemandesDePartenariat.aspx" style=""> <span style="color:red">${nb_DemandesPartenariat} </span>  Demandes de partenariat</a> </li>	
 	         <li class="active"><a href="DemandesEntreprises.aspx"><span style="color:red">${nb_DemandesEntreprise} </span>Demandes de détails </a></li> 
 	         <li><a href=""><span style="color:red">0 </span>Demandes de modification</a></li>
-	         <li><a href="inscription.html"><span style="color:red">0 </span>Nouveaux message</a></li>
+	         <li><a href=""><span style="color:red">0 </span>Nouveaux message</a></li>
 	         <li class="divider"></li> 
 	         <li><a href="index.aspx"><button style="position:relative;left:2px;"type="submit" class="btn btn-inverse">Se déconnecter</button></a></li>   
 

@@ -58,9 +58,9 @@
 		   <ul class="moncompte nav nav-list">
 		   
 	        
-	         <li class="active"><a href="StatDemandesParPays.aspx" style=""> Répartition des demandes de partenariat par Nationalité de l'entreprise </a></li>	
+	         <li><a href="StatDemandesParPays.aspx" style=""> Répartition des demandes de partenariat par Nationalité de l'entreprise </a></li>	
 	         <li><a href="StatDemandesParSecteur.aspx" style=""> Répartition des demandes de partenariat par Secteurs objets de partenariat </a></li>	
-	         <li><a href="StatDemandesParSousSecteur.aspx?SurSecteur=a">Répartition des demandes de partenariat par Sous-Secteurs objets de partenariat</a></li> 
+	         <li  class="active"><a href="StatDemandesParSousSecteur.aspx?SurSecteur=a">Répartition des demandes de partenariat par Sous-Secteurs objets de partenariat</a></li> 
 	          <li><a href="StatDemandesParAnnee.aspx">Nombre des Demandes de partenariat selon les années </a></li>
 	         <li><a href="inscription.html"><span style="color:red">0 </span>Nouveaux message</a></li>
 	         <li class="divider"></li> 
@@ -72,13 +72,42 @@
 		<div class="span9" >
 		<div class="well">
 				
+				<div >
+				    Entre l'année 
+					<select id="AnneeInf" onChange="fct()" name="AnneeInf">
+					<%for( int i=2000;i<2020.;i++){ %>
+					<option value="<%=i %>"><%=i %></option>
+					<%} %>
+					</select>
+					
+					et
+					
+					<select id="AnneeSup" onChange="fct()" name="AnneeSup">
+					<%for( int i=2000;i<=2020;i++){ %>
+					<option value="<%=i %>"><%=i %></option>
+					<%if(i==2019){i++; %>
+					<option value="<%=i %>" selected><%=i %></option>
+					<%i++;} %>
+					<%} %>
+					</select>
+			  
+				     Secteur d'activité 
+							<select class="form-control" id="Secteur"  onChange ="fct2()" name="SurSecteur" >
+								 <o:forEach items="${SurSecteurs}" var="ob">
+								 	<option value="${ob.idSecteur}">${ob.designiation}</option>
+							     </o:forEach>
+							</select>
+						
+				  </div>
+				  
+			 	
+				  <br><br>
+				  <div id="cible">
+				  		<center><img  src="StatDemandesParSousSecteur?AnneeInf=2000&AnneeSup=2020"" width="900" height="400" border="0"/></center>
+				 </div>
+				</form> 
 				
-	
-			   <form id="form1">
-			   <center>
-					  <img id ="StatDemandesParPays" src="StatDemandesParPays" width="900" height="400" border="0"/>
-				</center>
-					</form> 
+				
 				
        </div> 
        
@@ -88,7 +117,7 @@
 
  
 
-					<div class="footer well well-small">
+		<div class="footer well well-small">
 			Copyright &copy; CRI 2015 . Tout droits réservés  
 		</div>
         
@@ -103,13 +132,36 @@
 	
     <script language="Javascript"> 
   
+			function fct2()
+			{
+				
+				var AnneeInf =  document.getElementById("AnneeInf").value;
+				var AnneeSup =  document.getElementById("AnneeSup").value;
+				var sect =  document.getElementById("Secteur").value;
+				
+				
+				document.getElementById("cible").innerHTML =   '<center><img  src="StatDemandesParSousSecteur?SurSecteur='+sect+'&AnneeInf='+AnneeInf+'&AnneeSup='+AnneeSup+'" width="900" height="400" border="0"/></center>';
+				 
+				
+			}
 			
 			
+			function fct()
+			{
+				
+				var AnneeInf =  document.getElementById("AnneeInf").value;
+				var AnneeSup =  document.getElementById("AnneeSup").value;
+				var sect =  document.getElementById("Secteur").value;
+				
+				document.getElementById("cible").innerHTML =   '<center><img id ="StatDemandesParSousSecteur" src="StatDemandesParSousSecteur?SurSecteur='+sect+'&AnneeInf='+AnneeInf+'&AnneeSup='+AnneeSup+'" width="900" height="400" border="0"/></center>'
+				
+			}
 			
-			 $('img.submitableimage').click(function(){
+			
+			/*  $('img.submitableimage').click(function(){
 				      $('#myform').submit();
 			 });
-			
+			 */
 	 
 			 
     </script>
